@@ -1,0 +1,30 @@
+# v0.1.0_20261104_2000_.gitignore
+# PROJECTON — pliki poza gitem (tajne parametry, cache, dane robocze).
+# Reguła raportów jak w FCH: cały katalog raporty/ poza repo (dyżurny publikuje z VM).
+
+# --- Tajne / lokalne (§XVI, D3) ---
+config/*.local.json
+*.env
+.env
+.env.*
+!.env.example
+
+# --- Python / testy ---
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# --- Dane robocze ---
+dane_dev/
+
+# --- Raporty B (jak FCH: raporty/ poza gitem) ---
+raporty/
+
+# --- Systemowe / IDE ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

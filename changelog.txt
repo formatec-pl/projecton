@@ -1,0 +1,2 @@
+<!-- v0.1.0_20261104_2304_changelog.txt -->
+v0.1.0 — 2026-11-04 — PJ001 — szkielet repo i testy (dokończone w PJ002; testy przez .venv)

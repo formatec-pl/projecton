@@ -9,6 +9,7 @@
 3. Git: tylko gałąź `dev`; `git add` plikami po nazwie (bez `add -A`); zakaz `checkout`, `reset`, `stash`, `rm`, `clean`, `rebase`, `--force` — chyba że polecenie wprost nakazuje i podaje zgodę Mariusza.
 4. Sekretów (klucze, hasła, tokeny, tajne parametry technologiczne Formatec) nigdy nie wypisujesz w kodzie, raportach, logach ani testach — porównanie tylko skrótem (hash).
 5. Przy niepewności: ZATRZYMAJ SIĘ i opisz w raporcie B. Nie zgaduj.
+6. Jedno polecenie Shell na wywołanie: bez `cd`, `&&`, `;`, `|`, `$(…)`. Testy: `.venv/bin/python -m pytest`. Nie uruchamiaj skryptów z repo ani `pip`.
 
 ---
 ### I. CEL, ŚRODOWISKO I JEDNO ŹRÓDŁO PRAWDY (SSoT)
