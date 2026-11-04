@@ -1,0 +1,144 @@
+# v1.0_20261104_1050_.cursorrules
+# KONSTYTUCJA PROJECTON v1.0 — na wzór Konstytucji FCH + uzupełnienie v2.1 (warsztat/WSPOLNE/).
+# PRZED PODJĘCIEM JAKIEGOKOLWIEK DZIAŁANIA, STOSUJ PONIŻSZE ZASADY.
+
+---
+### 0. MIEJSCE PRACY I ZAKAZY BEZWZGLĘDNE
+1. Kod PROJECTON: `~/projecton/projecton` (repo formatec-pl/projecton) na VM projecton. Tylko ten folder wolno zmieniać.
+2. NIE WOLNO zapisywać niczego w `~/warsztat` ani w `~/fch` (FCH). Polecenia czytasz z `~/warsztat/PROJECTON/Zadania Claude dla Cursor/`, raport B zapisujesz do `raporty/_wyjscie_B/` w repo projecton (publikuje go dyżurny).
+3. Git: tylko gałąź `dev`; `git add` plikami po nazwie (bez `add -A`); zakaz `checkout`, `reset`, `stash`, `rm`, `clean`, `rebase`, `--force` — chyba że polecenie wprost nakazuje i podaje zgodę Mariusza.
+4. Sekretów (klucze, hasła, tokeny, tajne parametry technologiczne Formatec) nigdy nie wypisujesz w kodzie, raportach, logach ani testach — porównanie tylko skrótem (hash).
+5. Przy niepewności: ZATRZYMAJ SIĘ i opisz w raporcie B. Nie zgaduj.
+
+---
+### I. CEL, ŚRODOWISKO I JEDNO ŹRÓDŁO PRAWDY (SSoT)
+1. **Cel:** program do projektowania mebli online: biblioteka szafek, silnik reguł otworów, generator MPR/XML (we współpracy z FCH), konfigurator, planer, kosztorys.
+2. **Jedno źródło prawdy biblioteki:** szafki, materiały i reguły w JEDNYM miejscu (`biblioteka/`).
+3. **Jedno źródło matematyki:** współrzędne i przeliczenia liczy JEDEN moduł geometrii (`backend/geometria/`).
+4. **Zgodność z FCH:** wymiana danych z FCH tylko przez ustalone API / formaty (lista formatek JSON/CSV dla FastCut). PROJECTON nie zmienia kodu FCH.
+5. **Prefiks TEST_** dla zasobów testowych.
+
+---
+### II. PĘTLA BEZPIECZEŃSTWA KODU I TESTÓW — ACTIVE
+1. **CHECKPOINT:** przed edycją: `git add` <pliki po nazwie> i `git commit -m "checkpoint: przed PJNNN"` (dopuszczalny `--allow-empty`).
+2. **MODYFIKACJA:** tylko pliki z allowlisty (§VIII).
+3. **TESTY:** po zmianie WSZYSTKIE testy (`pytest`), także złote pliki zamkniętych etapów (§XI).
+4. **AUTONAPRAWA (MAX 3 PRÓBY)**, potem STOP i opis w raporcie B.
+5. **ZAKAZ** zmiany testów i złotych plików, żeby test przeszedł.
+
+### III. CIENKI KLIENT
+1. W warstwie przeglądarki (`.html`, `.js`, `.css`) nie może być logiki technologicznej ani geometrii obróbek. Przeglądarka tylko pokazuje dane przygotowane przez backend.
+2. Reguły otworów, łączeń i okuć oraz generator MPR działają wyłącznie w backendzie.
+
+---
+### IV. BEZPIECZEŃSTWO I MODUŁY
+1. Biblioteka, silnik otworów, generator MPR i eksport do FastCut / WooCommerce to osobne moduły ze wspólnym interfejsem danych. Zmiana jednego nie może zmieniać wyniku innego bez zgody w poleceniu.
+2. Każdy plik wejściowy i każda nazwa pliku podlega oczyszczeniu (ochrona przed Path Traversal).
+3. Sekrety (klucze, hasła, tokeny) tylko w pliku konfiguracji poza gitem. Nigdy w kodzie, raportach, logach ani w czacie.
+
+---
+### V. WERSJA I STEMPEL
+W PIERWSZEJ LINII każdego modyfikowanego lub nowego pliku źródłowego:
+- Python: `# v{WERSJA}_{RRRRMMDD}_{GGMM}_{NazwaPliku}`
+- JavaScript / CSS: `// v{WERSJA}_{RRRRMMDD}_{GGMM}_{NazwaPliku}`
+- HTML / Markdown: `<!-- v{WERSJA}_{RRRRMMDD}_{GGMM}_{NazwaPliku} -->`
+Wersja projektu w `changelog.txt` (pierwsza pozycja = aktualna).
+
+---
+### VI. ARCHIWUM I CHANGELOG
+1. Archiwum wersji = git: commit końcowy każdego zadania + tag zamkniętego etapu (§XI). Nie tworzymy kopii plików w folderach „Wersje Archiwalne” (lekcja z FCH: zaśmiecały repozytorium i groziły wyciekiem konfiguracji).
+2. Przy każdej zmianie kodu wpis w `changelog.txt`: wersja, data, numer zadania, co i dlaczego.
+
+---
+### VII. LICENCJA
+Na dole każdego pliku źródłowego klauzula:
+=============================================================================
+ AUTOR: Mariusz Adamczyk
+ WSZELKIE PRAWA ZASTRZEŻONE (C) 2026
+ Niniejszy program i kod źródłowy stanowią wyłączną własność autora.
+ Wprowadza się całkowity i bezwzględny zakaz udostępniania, rozpowszechniania
+ lub kopiowania programu osobom trzecim bez wyraźnej, pisemnej zgody autora.
+ Zastrzeżenie odpowiedzialności: Autor nie ponosi żadnej odpowiedzialności
+ za skutki wykorzystywania programu przez podmioty trzecie, w tym za ewentualne
+ szkody materialne, uszkodzenia sprzętu lub błędy produkcyjne maszyn CNC.
+=============================================================================
+
+---
+### VIII. BLOKADA ZAKRESU PLIKÓW (SCOPE LOCK) — CRITICAL / ACTIVE
+1. **ALLOWLISTA:** przed pierwszą edycją wypisz listę plików, które wolno zmienić (z polecenia A). Edytuj WYŁĄCZNIE te pliki.
+2. **ZAKAZ „PRZY OKAZJI”:** żadnych zmian poza allowlistą — także porządków, formatowania, podbijania wersji w innych plikach.
+3. **MINIMALNY DIFF:** jedna zmiana = jeden problem.
+4. **ODCZYT vs ZAPIS:** czytać wolno wszystko; zapis poza allowlistą = naruszenie konstytucji.
+5. **Potrzebny szerszy zakres:** ZATRZYMAJ się i opisz to w raporcie B. Nie rozszerzaj sam.
+6. **Pliki RYZYKOWNE** (§XII) zmieniasz tylko, gdy polecenie wprost je wymienia.
+
+---
+### IX. RAPORT PO ZADANIU — CRITICAL / ACTIVE
+1. Po każdym zadaniu (także nieudanym) zapisz `raporty/_wyjscie_B/PJNNN_B_ODPOWIEDZ_RRRRMMDD_GGMM_nazwa.md` (NNN i nazwa jak w poleceniu A). Pierwsza linia: stempel §V.
+2. Obowiązkowo: pełna treść polecenia, allowlista, `git status --short`, opis zmian per plik, hash checkpointu i commita końcowego, wyniki WSZYSTKICH testów, status każdego kroku, odstępstwa, rzeczy niezrobione, CO NIE BYŁO SPRAWDZONE.
+3. Zakaz opisywania jako wykonane czegoś niezweryfikowanego. Raportów się nie edytuje. UTF-8 bez BOM. Bez sekretów.
+
+---
+### X. KOMENDA „dnp PJ”
+1. `dnp PJ`: wykonaj polecenie `PJNNN_A_POLECENIE_…` o najniższym numerze bez odpowiedzi B. Brak → „Kolejka PROJECTON pusta”.
+2. `dnp PJNNN`: dokładnie to polecenie (chyba że ma warunek „PO zadaniu PJMMM” bez B → zatrzymaj się).
+3. Zwykłe `dnp` dotyczy FCH, nie PROJECTON — w tym repo go nie wykonuj.
+4. Przepisz w odpowiedzi pełną treść polecenia; wykonaj zgodnie z §VIII i §IX; jedno `dnp PJ` = jedno polecenie.
+5. Po raporcie wypisz pozostałe polecenia PJ bez B albo „Kolejka PROJECTON pusta”.
+
+---
+### XI. TRWAŁOŚĆ ETAPÓW — NIC, CO DZIAŁAŁO, NIE MOŻE SIĘ POPSUĆ
+1. **Złote pliki:** zamknięty etap ma pliki wzorcowe w `tests/zlote/` (np. wzorcowa lista formatek, wzorcowy MPR dla danej szafki), zatwierdzone przez Dimę (technologa) i właściciela.
+2. **Każde polecenie uruchamia testy wszystkich zamkniętych etapów.** Jeśli choć jeden złoty test nie przechodzi — ZATRZYMAJ SIĘ, opisz w raporcie B, nie poprawiaj testu.
+3. **Zmiana złotego pliku tylko wtedy, gdy polecenie wprost to nakazuje** (decyzja właściciela; przy zmianach technologicznych też podpis Dimy).
+4. **Tag etapu:** po zamknięciu etapu `git tag etap-N-zamkniety` (tylko gdy polecenie to nakazuje).
+
+---
+### XII. BEZPIECZEŃSTWO PRODUKCJI CNC
+1. **Pliki RYZYKOWNE:** generator MPR, reguły technologiczne (`biblioteka/reguly/`), tabela narzędzi, konwencja współrzędnych (`docs/UKLAD_WSPOLRZEDNYCH.md`), złote pliki.
+2. Plik MPR trafia na maszynę dopiero po: (1) podglądzie w woodWOP, (2) próbie na odpadzie, (3) akceptacji Dimy w liście zadań. Cursor nigdy nie twierdzi, że MPR jest „gotowy na maszynę”.
+3. Każdy wygenerowany MPR zawiera w komentarzu: wersję programu, wersję reguł, datę i nazwę szafki.
+4. **W razie wątpliwości generator ODMAWIA** wygenerowania pliku i podaje powód. Nigdy nie zgaduje wartości.
+
+---
+### XIII. GEOMETRIA — STAŁE KONWENCJE
+1. Wymiary w milimetrach, dokładność 0,1 mm; testy porównują z tolerancją 0,05 mm.
+2. Konwencje opisuje `docs/UKLAD_WSPOLRZEDNYCH.md`: punkt zero formatki, osie X/Y/Z, strona A/B, kierunek słojów, krawędzie B1–B4.
+3. **Pierwszy wymiar (L) = długość wzdłuż słojów.** Program nigdy sam nie zamienia L z B ani nie obraca oklein, bo „B > L” (zasada właściciela z FCH).
+4. Każda formatka ma stałą rolę (BOK L, BOK P, WD, WG, PÓŁKA, FRONT…). Program nie zgaduje roli z wymiarów.
+5. Każda nowa reguła geometrii = test na przypadku policzonym ręcznie przez Dimę.
+
+---
+### XIV. POTWIERDZENIA I UWAGI NA LIŚCIE ZADAŃ
+1. Każdy krok ma: **Cursor** (wykonał, testy przeszły — w raporcie B) · **Claude** (sprawdził kod i git) · **Akceptacja** (ostateczna: Dima ALBO Mariusz) · **Uwagi**.
+2. **Uwagi** = co poprawić. Wpisy się nie kasuje — tylko dopisuje z datą i autorem. Claude robi z nich kolejne polecenie i wpisuje w Uwagach jego numer. Tak powstaje historia poprawek.
+3. Kroki technologiczne (otwory, MPR, okleiny, wymiary) akceptuje Dima; Mariusz może zawsze zaakceptować lub cofnąć akceptację.
+4. Cursor odhacza wyłącznie swoją kolumnę — w raporcie B, nie w pliku listy.
+
+---
+### XV. MODUŁOWOŚĆ
+1. Aplikacja składa się z modułów → podmodułów → podpodmodułów, np. `wyjscia/mpr/homag`. Mapa modułów: `docs/MODULY.md` (prowadzi Claude).
+2. **Moduły:** Aplikacje (lista formatek, konfigurator, planer, panel administratora) · Wejścia (DXF, MPR, BXF2, PRO100, AI, formularz) · Rdzeń (wspólny model danych + silnik reguł) · Wyjścia (MPR, FastCut, OM, PDF) · Katalog (szafki, akcesoria, produkty aranżacyjne, materiały, cenniki) · Handel (WooCommerce, kosztorys, listy zakupowe, marketplace) · Konto i licencje · Infrastruktura.
+3. Każdy moduł ma własny folder, testy, złote pliki i kartę (`KARTA.md`: co robi, czego wymaga, co oddaje).
+4. **Moduły nie sięgają do siebie nawzajem** — wymieniają dane tylko przez rdzeń (wspólny model danych) i API. Import funkcji z innego modułu poza jego publicznym interfejsem = naruszenie konstytucji.
+5. Zmiana wspólnego modelu danych lub API = osobne zadanie RYZYKOWNE, z testami wszystkich modułów.
+6. Polecenia dla różnych modułów mogą iść równolegle; dla tego samego modułu — po kolei.
+
+---
+### XVI. TAJEMNICA PROJEKTU I OCHRONA PRZED ATAKAMI
+1. **Tajemnica:** repozytorium prywatne. Kod, reguły, cenniki i dokumenty strategiczne tylko dla osób wpisanych przez właściciela (z umową o poufności). Żadnych fragmentów kodu ani reguł w publicznych miejscach, forach, zrzutach.
+2. **Przeglądarka nie dostaje niczego cennego:** reguły otworów, postprocesor MPR, cenniki, kosztorys i limity licencji działają tylko na serwerze. Przeglądarka dostaje gotowy wynik.
+3. **Konta:** każdy użytkownik ma własne konto; żadnego wspólnego tokenu w adresie strony. Hasła tylko w postaci zaszyfrowanej (hash).
+4. **Blokery:** limit zapytań na konto i adres; blokada po wielu błędnych logowaniach; sprawdzanie każdego wgranego pliku (rozmiar, typ, zawartość, ścieżka); tylko HTTPS; nagłówki bezpieczeństwa (CSP, X-Frame-Options); dziennik dostępu.
+5. **Pliki wynikowe** (MPR, PDF, CSV) mają ukryty identyfikator konta — żeby ustalić źródło wycieku.
+6. Osobny serwer testowy i produkcyjny. Przed publicznym wydaniem: przegląd bezpieczeństwa (Claude) i lista kontrolna w raporcie B.
+7. Sekrety tylko w konfiguracji poza gitem; w raportach, logach i testach zamaskowane `***`.
+
+---
+### XVII. MODEL DOSTĘPU (DARMOWE / PŁATNE)
+1. Uprawnienia sprawdza WYŁĄCZNIE serwer (moduł Konto i licencje). Przeglądarka tylko pokazuje, co wolno.
+2. Poziomy: **Darmowy** (projektowanie, podgląd, lista formatek, wycena w Formatec — do X projektów lub Y dni) · **Klient Formatec** (jak płatny, przy obrocie powyżej progu) · **Płatny** (eksport MPR na własną maszynę, pełny kosztorys, biblioteka premium) · **Hurtownia** (planer pod własną marką). Wartości X, Y i progu ustala właściciel w konfiguracji.
+3. Każda nowa funkcja w poleceniu A ma przypisany poziom dostępu. Brak przypisania = funkcja tylko dla administratora.
+4. Dodawanie akcesoriów i produktów do katalogu: tylko administrator Formatec (panel administratora). Zwykły użytkownik może najwyżej wysłać zgłoszenie.
+
+# --- KONIEC KONSTYTUCJI PROJECTON v1.0 (ACTIVE) ---
