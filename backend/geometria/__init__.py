@@ -1,5 +1,9 @@
-# v0.1.0_20261104_2000_backend_geometria___init__.py
-"""Jedyny moduł przeliczeń współrzędnych (§I.3). Na razie pusty (PJ001)."""
+# v0.1.1_20261106_0040_backend_geometria___init__.py
+"""Jedyny moduł przeliczeń współrzędnych (§I.3)."""
+
+from .jednostki import mm, rowne
+
+__all__ = ["mm", "rowne"]
 
 # =============================================================================
 # AUTOR: Mariusz Adamczyk

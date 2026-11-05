@@ -1,2 +1,3 @@
-<!-- v0.1.0_20261104_2304_changelog.txt -->
+<!-- v0.1.1_20261106_0040_changelog.txt -->
+v0.1.1 — 2026-11-05 — MA001 — geometria: mm() i rowne() (0,1 mm, tolerancja 0,05 mm)
 v0.1.0 — 2026-11-04 — PJ001 — szkielet repo i testy (dokończone w PJ002; testy przez .venv)
